@@ -1,0 +1,1 @@
+alter table medicos modify column telefone varchar(20) not null unique;
