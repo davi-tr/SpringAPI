@@ -1,9 +1,6 @@
 package com.femass.api.controller;
 
-import com.femass.api.medico.DadosCadastroMedico;
-import com.femass.api.medico.DadosListagemMedico;
-import com.femass.api.medico.Medico;
-import com.femass.api.medico.MedicoRepository;
+import com.femass.api.medico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +21,21 @@ public class MedicoController {
     }
     @GetMapping
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+        return repository.findAllByStatusTrue(paginacao).map(DadosListagemMedico::new);
+    }
 
-        return repository.findAll(paginacao).map(DadosListagemMedico::new);
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosCadastroMedicoAtualizar dados){
+        var medico = repository.getReferenceById(dados.id());
+        medico.atualizarInformacoes(dados);
+    }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id){
+        var medico = repository.getReferenceById(id);
+        medico.excluir();
     }
 
 }
