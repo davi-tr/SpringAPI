@@ -34,6 +34,7 @@ public class Paciente {
         this.cpf = dados.cpf();
         this.telefone = dados.telefone();
         this.endereco = new Endereco(dados.endereco());
+        this.status = true;
     }
 
     public void excluir() {
