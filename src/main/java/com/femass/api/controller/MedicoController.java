@@ -1,6 +1,7 @@
 package com.femass.api.controller;
 
-import com.femass.api.medico.*;
+import com.femass.api.domain.medico.*;
+import com.femass.api.domain.medico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class MedicoController {
         var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DadosUnicoMedico(medico));
+
+
     }
     @GetMapping
     public ResponseEntity <Page<DadosListagemMedico>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
@@ -34,6 +37,7 @@ public class MedicoController {
 
     @GetMapping("{id}")
     public ResponseEntity detalharMed(@PathVariable Long id){
+
         var medico = repository.getReferenceById(id);
 
         return ResponseEntity.ok(new DadosUnicoMedico(medico));

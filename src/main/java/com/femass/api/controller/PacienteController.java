@@ -1,11 +1,8 @@
 package com.femass.api.controller;
 
 
-import com.femass.api.medico.DadosCadastroMedico;
-import com.femass.api.medico.DadosCadastroMedicoAtualizar;
-import com.femass.api.medico.DadosListagemMedico;
-import com.femass.api.medico.Medico;
-import com.femass.api.paciente.*;
+import com.femass.api.domain.paciente.*;
+import com.femass.api.domain.paciente.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.awt.image.RescaleOp;
 
 @RestController
 @RequestMapping("pacientes")

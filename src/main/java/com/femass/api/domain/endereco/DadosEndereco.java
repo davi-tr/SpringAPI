@@ -1,4 +1,4 @@
-package com.femass.api.endereco;
+package com.femass.api.domain.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
