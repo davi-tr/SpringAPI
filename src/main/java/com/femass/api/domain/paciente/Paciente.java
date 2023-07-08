@@ -1,45 +1,46 @@
-package com.femass.api.medico;
+package com.femass.api.domain.paciente;
 
-import com.femass.api.endereco.Endereco;
+import com.femass.api.domain.endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "medicos")
-@Entity(name = "Medico")
+@Table(name = "pacientes")
+@Entity(name = "Paciente")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Medico {
+public class Paciente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String nome;
     private String email;
-    private String crm;
     private String telefone;
+    private String cpf;
     private Boolean status;
-
-    @Enumerated(EnumType.STRING)
-    private Especialidade especialidade;
 
     @Embedded
     private Endereco endereco;
 
-    public Medico(DadosCadastroMedico dados) {
-        this.status = true;
+    public Paciente(DadosCadastroPaciente dados) {
         this.nome = dados.nome();
         this.email = dados.email();
-        this.crm = dados.crm();
+        this.cpf = dados.cpf();
         this.telefone = dados.telefone();
-        this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+        this.status = true;
     }
 
-    public void atualizarInformacoes(DadosCadastroMedicoAtualizar dados) {
+    public void excluir() {
+        this.status = false;
+    }
+
+    public void atualizarInformacoes(DadosCadastroPacienteAtualizar dados) {
         if(dados.nome() != null) {
             this.nome = dados.nome();
         }
@@ -49,11 +50,5 @@ public class Medico {
         if(dados.endereco() != null){
             this.endereco.atualizarInformacoes(dados.endereco());
         }
-
-
-    }
-
-    public void excluir() {
-        this.status = false;
     }
 }

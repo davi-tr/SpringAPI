@@ -1,6 +1,6 @@
-package com.femass.api.paciente;
+package com.femass.api.domain.paciente;
 
-import com.femass.api.endereco.DadosEndereco;
+import com.femass.api.domain.endereco.DadosEndereco;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroPacienteAtualizar(

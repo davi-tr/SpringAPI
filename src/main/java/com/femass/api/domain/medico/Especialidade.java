@@ -1,4 +1,4 @@
-package com.femass.api.medico;
+package com.femass.api.domain.medico;
 
 public enum Especialidade {
     ORTOPEDIA,

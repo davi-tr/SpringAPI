@@ -1,47 +1,45 @@
-package com.femass.api.paciente;
+package com.femass.api.domain.medico;
 
-import com.femass.api.endereco.Endereco;
-import com.femass.api.medico.DadosCadastroMedico;
+import com.femass.api.domain.endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "pacientes")
-@Entity(name = "Paciente")
+@Table(name = "medicos")
+@Entity(name = "Medico")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Paciente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+public class Medico {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String email;
+    private String crm;
     private String telefone;
-    private String cpf;
     private Boolean status;
+
+    @Enumerated(EnumType.STRING)
+    private Especialidade especialidade;
 
     @Embedded
     private Endereco endereco;
 
-    public Paciente(DadosCadastroPaciente dados) {
+    public Medico(DadosCadastroMedico dados) {
+        this.status = true;
         this.nome = dados.nome();
         this.email = dados.email();
-        this.cpf = dados.cpf();
+        this.crm = dados.crm();
         this.telefone = dados.telefone();
+        this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
-        this.status = true;
     }
 
-    public void excluir() {
-        this.status = false;
-    }
-
-    public void atualizarInformacoes(DadosCadastroPacienteAtualizar dados) {
+    public void atualizarInformacoes(DadosCadastroMedicoAtualizar dados) {
         if(dados.nome() != null) {
             this.nome = dados.nome();
         }
@@ -51,5 +49,11 @@ public class Paciente {
         if(dados.endereco() != null){
             this.endereco.atualizarInformacoes(dados.endereco());
         }
+
+
+    }
+
+    public void excluir() {
+        this.status = false;
     }
 }

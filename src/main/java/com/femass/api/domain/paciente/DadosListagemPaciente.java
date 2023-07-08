@@ -1,4 +1,4 @@
-package com.femass.api.paciente;
+package com.femass.api.domain.paciente;
 
 public record DadosListagemPaciente(Long id, String nome, String email, String telefone, String cpf) {
 
