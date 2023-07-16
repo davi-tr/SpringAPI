@@ -1,4 +1,4 @@
-package com.femass.api.infra;
+package com.femass.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
