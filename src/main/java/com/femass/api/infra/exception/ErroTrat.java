@@ -1,5 +1,6 @@
 package com.femass.api.infra.exception;
 
+import com.femass.api.domain.ValidacaoException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,10 @@ public class ErroTrat {
         var erros = ex.getRootCause();
 
         return ResponseEntity.badRequest().body(new DadosSQL(erros));
+    }
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity tratarErrorRegra(ValidacaoException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     private record DadosSQL(String mensagem){
